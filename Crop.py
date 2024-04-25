@@ -15,7 +15,7 @@ def initialize_chain():
     text_splitter = RecursiveCharacterTextSplitter()
     documents = text_splitter.split_documents(docs)
 
-    embeddings = OpenAIEmbeddings(openai_api_key="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")
+    embeddings = OpenAIEmbeddings(openai_api_key="**")
 
     vectorstore = FAISS.from_documents(documents, embeddings)
 
@@ -29,7 +29,7 @@ def initialize_chain():
     """
     prompt = ChatPromptTemplate.from_template(template)
 
-    model = ChatOpenAI(openai_api_key="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")
+    model = ChatOpenAI(openai_api_key="***")
 
     output_parser = StrOutputParser()
 
