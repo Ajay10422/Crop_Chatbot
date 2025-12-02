@@ -38,41 +38,56 @@ graph LR
 
 ```
 
-🚀 Key Engineering Features
+Core Components
+Ingestion & Vectorization:
 
-Vector Search & Embeddings: Utilizes FAISS (Facebook AI Similarity Search) to index agricultural data, enabling high-performance semantic search rather than simple keyword matching.
+* Uses LangChain CSVLoader to ingest structured crop/disease data.
 
+* Splits text using RecursiveCharacterTextSplitter.
 
-Prompt Engineering: Implements custom prompt templates to instruct the OpenAI GPT-3.5 model to prioritize retrieved context over general knowledge.
+* Generates embeddings via OpenAIEmbeddings and indexes them in FAISS (Facebook AI Similarity Search) for sub-second retrieval.
 
+* Semantic Search (The "Brain"):
 
-Hybrid Query Logic:
+* Unlike keyword search (SQL LIKE), FAISS understands intent.
 
+* Example: A query for "yellow leaves" retrieves data about "Nitrogen Deficiency" even if the user never used the specific medical term.
 
-Domain Queries: If the input relates to crops, the system retrieves specific answers from the dataset.
+The "Traffic Cop" Router:
 
+* The system analyzes the user's prompt.
 
-General Queries: Falls back to the base LLM capabilities for non-technical conversation.
+* Domain Queries (e.g., "Maize", "Pest"): Routed to the RAG pipeline for strict factual answering.
 
+* General Queries (e.g., "Hello"): Routed to the base LLM for conversational flow.
 
-Interactive UI: Deployed using Streamlit for a responsive, low-latency user experience.
+🚀 Key Features
 
-🛠️ Tech Stack
+* Zero Hallucinations: The prompt template strictly enforces: "Answer the question based ONLY on the following context." If the answer isn't in the dataset, the AI admits it rather than guessing.
 
-LLM: OpenAI GPT-3.5 
+* Low-Latency Retrieval: FAISS runs locally within the application container, removing the network overhead of external vector DBs for this prototype.
 
+* Cost Optimization: By routing general chat away from the vector store, we save on compute resources and token usage.
 
-Orchestration: LangChain 
+🔮 Future Roadmap (Production Scale)
 
+* To scale this from a prototype to an Enterprise Solution (like an Insurance Policy Assistant), the following architectural upgrades are planned:
 
-Vector Database: FAISS 
+🔄 Automated Ingestion Pipeline (Airflow):
 
+* Implement Apache Airflow to watch for new document uploads (e.g., new Policy PDFs).
 
-Data Source: Kaggle Agricultural Dataset (CSV: Question/Answer/Crop) 
+Trigger auto-ingestion and re-indexing so the AI is always up-to-date with the latest regulations.
 
+🔎 Hybrid Search (Pinecone/Weaviate):
 
-Frontend: Streamlit 
-Launch App
+* Migrate from FAISS to Pinecone to implement Hybrid Search (combining Semantic Vectors with Keyword BM25).
+
+* Use Case: Ensuring specific Policy IDs (e.g., "POL-992") are matched exactly, while maintaining semantic understanding of coverage terms.
+
+🎙️ Speech-to-Text Integration:
+
+* Integrate OpenAI Whisper to allow farmers (or agents) to ask questions via voice while in the field.
 
 Bash
 
