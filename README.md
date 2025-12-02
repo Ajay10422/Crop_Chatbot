@@ -89,6 +89,11 @@ Trigger auto-ingestion and re-indexing so the AI is always up-to-date with the l
 
 * Integrate OpenAI Whisper to allow farmers (or agents) to ask questions via voice while in the field.
 
-Bash
+📂 Project Structure
 
-streamlit run app.py
+├── app.py                  # Main Streamlit application & routing logic
+├── chain_setup.py          # LangChain RAG pipeline & FAISS initialization
+├── data/
+│   └── AgroQA_Dataset.csv  # Knowledge base (can be swapped for PDFs)
+├── requirements.txt        # Python dependencies
+└── README.md               # Documentation
