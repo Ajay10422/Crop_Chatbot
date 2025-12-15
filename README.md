@@ -7,7 +7,7 @@
 ![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
 
 ## 📌 Project Overview
-This repository implements a **Retrieval-Augmented Generation (RAG)** system designed to provide specialized technical assistance to farmers[cite: 7]. [cite_start]Unlike generic chatbots, this system is engineered to answer domain-specific queries by retrieving context from a structured agricultural dataset before generating a response[cite: 4, 5].
+This repository implements a **Retrieval-Augmented Generation (RAG)** system designed to provide specialized technical assistance to farmers Unlike generic chatbots, this system is engineered to answer domain-specific queries by retrieving context from a structured agricultural dataset before generating a response.
 
 The system solves the "hallucination" problem of standard LLMs by grounding answers in verified crop data, aiding farmers in making data-driven decisions regarding crop health and management.
 
